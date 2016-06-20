@@ -66,7 +66,7 @@ var TextFieldHolder = React.createClass({
 var FloatLabelTextField = React.createClass({
   getInitialState: function() {
     return {
-      focussed: false,
+      focused: false,
       text: this.props.value
     };
   },
@@ -94,6 +94,7 @@ var FloatLabelTextField = React.createClass({
             </FloatingLabel>
             <TextFieldHolder withValue={this.state.text}>
               <TextInput
+                ref={this.props.ref}
                 placeholder={this.props.placeholder}
                 enablesReturnKeyAutomatically={this.props.enablesReturnKeyAutomatically}
                 style={[styles.valueText]}
@@ -101,8 +102,8 @@ var FloatLabelTextField = React.createClass({
                 value={this.state.text}
                 maxLength={this.props.maxLength}
                 selectionColor={this.props.selectionColor}
-                onFocus={this.setFocus}
-                onBlur={this.unsetFocus}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
                 onChangeText={this.setText}
                 secureTextEntry={this.props.secureTextEntry}
                 keyboardType={this.props.keyboardType}
@@ -115,27 +116,29 @@ var FloatLabelTextField = React.createClass({
       </View>
     );
   },
-  setFocus: function() {
+  onFocus(event) {
+    const { onFocus } = this.props;
     this.setState({
-      focussed: true
+      focused: true
     });
-    try {
-      return this.props.onFocus();
-    } catch (_error) {}
+    if (onFocus) {
+      onFocus(event);
+    }
   },
 
-  unsetFocus: function() {
+  onBlur(event) {
+    const { onBlur } = this.props;
     this.setState({
-      focussed: false
+      focused: false
     });
-    try {
-      return this.props.onBlur();
-    } catch (_error) {}
+    if (onBlur) {
+      onBlur(event);
+    }
   },
 
   labelStyle: function() {
-    if (this.state.focussed) {
-      return styles.focussed;
+    if (this.state.focused) {
+      return styles.focused;
     }
   },
 
@@ -202,7 +205,7 @@ var styles = StyleSheet.create({
   withMargin: {
     marginTop: 10
   },
-  focussed: {
+  focused: {
     color: "#1482fe"
   }
 });
