@@ -98,7 +98,7 @@ var FloatLabelTextField = React.createClass({
             </FloatingLabel>
             <TextFieldHolder withValue={this.state.text}>
               <TextInput
-                ref={this.props.ref}
+                ref={this.props.refValue}
                 placeholder={this.props.placeholder}
                 enablesReturnKeyAutomatically={this.props.enablesReturnKeyAutomatically}
                 style={[styles.valueText]}
