@@ -95,6 +95,7 @@ var FloatLabelTextField = React.createClass({
             <TextFieldHolder withValue={this.state.text}>
               <TextInput
                 placeholder={this.props.placeholder}
+                enablesReturnKeyAutomatically={this.props.enablesReturnKeyAutomatically}
                 style={[styles.valueText]}
                 defaultValue={this.props.defaultValue}
                 value={this.state.text}
@@ -149,7 +150,7 @@ var FloatLabelTextField = React.createClass({
       text: value
     });
     try {
-      return this.props.onChangeTextValue(value);
+      return this.props.onChangeText(value);
     } catch (_error) {}
   },
 
